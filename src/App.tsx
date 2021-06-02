@@ -47,7 +47,18 @@ const App = ()  =>{
         return [...prev, { ...clickedItem, amount: 1 }];
     });
   };
-  const handleRemoveFromCart = () => null;
+  const handleRemoveFromCart = (id: number) => {
+      setCartItems((prev) =>
+          prev.reduce((remainingItems, item) => {
+              if (item.id === id) {
+                  if (item.amount === 1) return remainingItems;
+                  return [...remainingItems, { ...item, amount: item.amount - 1 }];
+              } else {
+                  return [...remainingItems, item];
+              }
+          }, [] as CartItemType[])
+      );
+  };
 
     const CartContainer = () => (
         <>
